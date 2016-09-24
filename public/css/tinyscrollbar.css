@@ -1,0 +1,10 @@
+/* Tiny Scrollbar */
+.control-scroll { width: 191px;  height: 210px; }
+.control-scroll .viewport { width: 187px; height: 210px; overflow: hidden; position: relative; }
+.control-scroll .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+.control-scroll .scrollbar{ position: relative; float: right; width: 4px; }
+.control-scroll .track { background: rgba(255,255,255,0.2); height: 208px; width:4px; position: relative; padding: 0 1px; border-radius:2px; }
+.control-scroll .thumb { background: #fff; height: 47px; width: 4px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: 0px;border-radius:2px;}
+.control-scroll .thumb .end { background: #fff; overflow: hidden; height: 5px; width: 4px; }
+.control-scroll .disable { display: none; }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }

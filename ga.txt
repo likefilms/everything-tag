@@ -1,0 +1,5 @@
+ga('send','event','register','submit');
+ga('send','event','videos','play','Play video: ' + url);
+
+ga('send','event','tags','show','Name tag: ' + l.name);
+ga('send','event','tags','click','Name tag: ' + this.name);

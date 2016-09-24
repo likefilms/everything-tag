@@ -1,0 +1,76 @@
+.drsElement {
+ position: absolute;
+}
+
+.drsMoveHandle {
+ height: 20px;
+ cursor: move;
+}
+
+.dragresize {
+ position: absolute;
+ width: 5px;
+ height: 5px;
+ font-size: 1px;
+ background: #EEE;
+ border: 1px solid #333;
+}
+
+.dragresize-tl {
+ display: none;
+ top: -8px;
+ left: -8px;
+ cursor: nw-resize;
+}
+
+.dragresize-tm {
+ display: none;
+ top: -8px;
+ left: 50%;
+ margin-left: -4px;
+ cursor: n-resize;
+}
+
+.dragresize-tr {
+ display: none;
+ top: -8px;
+ right: -8px;
+ cursor: ne-resize;
+}
+
+.dragresize-ml {
+ display: none;
+ top: 50%;
+ margin-top: -4px;
+ left: -8px;
+ cursor: w-resize;
+}
+
+.dragresize-mr {
+ display: none;
+ top: 50%;
+ margin-top: -4px;
+ right: -8px;
+ cursor: e-resize;
+}
+
+.dragresize-bl {
+ display: none;
+ bottom: -8px;
+ left: -8px;
+ cursor: sw-resize;
+}
+
+.dragresize-bm {
+ display: none;
+ bottom: -8px;
+ left: 50%;
+ margin-left: -4px;
+ cursor: s-resize;
+}
+
+.dragresize-br {
+ bottom: -8px;
+ right: -8px;
+ cursor: se-resize;
+}

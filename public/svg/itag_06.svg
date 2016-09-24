@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><svg width='80px' height='80px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid" class="uil-poi"><rect x="0" y="0" width="120" height="120" fill="none" class="bk"></rect>
+
+<g transform="translate(50,45)">
+	<g>
+	<g transform="translate(-50,-45)">
+		<g id="XMLID_920_">
+	<path id="XMLID_924_" style="fill:#EA348B;" d="M145,180c-13.807,0-25-11.193-25-25s11.193-25,25-25h15V90h-15H70L50,380h140V180
+		H145z"/>
+	<path id="XMLID_925_" style="fill:#B02768;" d="M310,90h-75h-15v40h15c13.807,0,25,11.193,25,25s-11.193,25-25,25h-45v200h140
+		L310,90z"/>
+	<path id="XMLID_926_" style="fill:#FFDA44;" d="M220,90h15c24.853,0,45-20.147,45-45S259.853,0,235,0s-45,20.147-45,45
+		c0-24.853-20.146-45-45-45s-45,20.147-45,45s20.146,45,45,45h15H220z M220,45c0-8.271,6.729-15,15-15s15,6.729,15,15
+		s-6.729,15-15,15h-15V45z M130,45c0-8.271,6.729-15,15-15s15,6.729,15,15v15h-15C136.729,60,130,53.271,130,45z"/>
+	<polygon id="XMLID_930_" style="fill:#FF9811;" points="160,130 160,160 190,130 220,160 220,130 220,90 160,90 	"/>
+</g>
+
+		<animateTransform attributeName="transform" type="translate" dur="1s" repeatCount="indefinite" from="0,17" to="0,17" values="0,17;0,-17;0,17" keyTimes="0;0.5;1" keySplines="0.4 0.8 0.4 0.8;0.8 0.4 0.8 0.4" calcMode="spline"></animateTransform>
+		</g>
+		<animateTransform attributeName="transform" type="none" from="0" to="360" dur="1s" repeatCount="indefinite"></animateTransform>
+	</g>
+</g>
+</svg>
