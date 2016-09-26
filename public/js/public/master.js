@@ -72,28 +72,12 @@ $(document).ready(function() {
         $("#TitleVideo").val(tmpStr);
     });
 
-    var editTitle = function(title,id) {
-        
-        $.ajax({
-          type: 'post',
-          url: './index.php',
-          data: { type: 'editTitle', title: title, id: id },
-          success: function(data) {
-            //alert(data);
-          }
-        });
-    }
-
     $("#TitleVideo").focusout(function(e) {
         var title = $(this).val();
 
         if(title!="") {
             $(".edit-top a.title").text(title).show();
             $(".edit-top .edit-title").hide();
-
-            var id = getVars.id;
-            if(id)
-                editTitle(title, id);
         }
     })
 
@@ -130,22 +114,22 @@ $(document).ready(function() {
     });
 
     $(".prepared-variations .variant").hover(function(){
-            src = $(this).find("img").attr("src").split("/")[1].split(".")[0];
+            src = $(this).find("img").attr("src").split("/")[2].split(".")[0];
 
             if(src=="itag_01" || src=="itag_02") {
-                src = "svg/" + src + "_w.svg";
+                src = "/svg/" + src + "_w.svg";
             } else {
-                src = "svg/" + src + ".svg";
+                src = "/svg/" + src + ".svg";
             }
 
             $(this).find("img").attr("src",src);
         }, function(){
-            src = $(this).find("img").attr("src").split("/")[1].split(".")[0];
+            src = $(this).find("img").attr("src").split("/")[2].split(".")[0];
 
             if(src=="itag_01_w" || src=="itag_02_w") {
-                src = "img/" + src.split("_w")[0] + ".png";
+                src = "/img/" + src.split("_w")[0] + ".png";
             } else {
-                src = "img/" + src.split("_w")[0] + ".png";
+                src = "/img/" + src.split("_w")[0] + ".png";
             }
 
             $(this).find("img").attr("src", src);

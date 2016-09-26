@@ -6,19 +6,15 @@
 @section('image', $model->present()->thumbUrl())
 @section('bodyClass', 'body-videos body-video-'.$model->id.' body-page body-page-'.$page->id)
 
-@section('main')
-
-    <!--@include('core::public._btn-prev-next', ['module' => 'Videos', 'model' => $model])
-    <article>
-        <h1>{{ $model->title }}</h1>
-        {!! $model->present()->thumb(null, 200) !!}
-        <p class="summary">{{ nl2br($model->summary) }}</p>
-        <div class="body">{!! $model->present()->body !!}</div>
-    </article>-->
+@section('main')  
 
        <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
+            {!! BootForm::open()->put()->action(route('admin::update-video', $model->id))->multipart()->role('form') !!}
+              
+            {!! BootForm::close() !!}
+
             <div class="edit-top">
               <a href="/" class="logo-edit"><img src="/img/logo-edit.png" alt=""></a>
               <a href="#" <?php if(empty($model->title)) echo 'style="display:none;"'; ?> class="title"><?=$model->title; ?></a>
@@ -91,7 +87,6 @@
                                 <div class="prepared-variations">
                                   <div class="title">prepared variations</div>
                                   <div class="variations">
-                                    <!--<div class="variant" data-svg="svg/itag_1.svg"><img src="svg/itag_1.svg?color=#ffffff" width="72" height="72" alt="Tag 1"></div>-->
                                     <div class="variant" data-svg="/svg/itag_01.svg"><img src="/img/itag_01.png" alt="Tag 1"></div>
                                     <div class="variant" data-svg="/svg/itag_02.svg"><img src="/img/itag_02.png" alt="Tag 2"></div>
                                     <div class="variant" data-svg="/svg/itag_03.svg"><img src="/img/itag_03.png" alt="Tag 3"></div>
@@ -205,6 +200,8 @@
         window.path = '<?php echo '/uploads/videos/'.$model->name; ?>';
         
         Editor.slug = '<?=$model->slug; ?>';
+        Editor.id = '<?=$model->id; ?>';
+        Editor.user_id = '<?=$model->user_id; ?>';
         Editor.type = 'editor';
         Editor.init();
         

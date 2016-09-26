@@ -86,6 +86,8 @@ class AdminController extends BaseAdminController
     {
         $this->repository->update($request->all());
 
+        $request->all();
+
         return $this->redirect($request, $video);
     }
 

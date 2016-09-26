@@ -62,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
             $router->post('api/videos/upload_video', 'ApiController@upload_video')->name('api::upload_video-video');
             $router->get('api/analytics', 'ApiController@analytics')->name('api::analytics-video');
             $router->put('api/videos/{video}', 'ApiController@update')->name('api::update-video');
+            $router->post('api/videos/update/{video}', 'ApiController@update')->name('api::update-video');
             $router->delete('api/videos/{video}', 'ApiController@destroy')->name('api::destroy-video');
             
         });

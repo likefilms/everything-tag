@@ -14,6 +14,7 @@ var Editor = new function() {
       $currentTime = $('#currentTime'),
       labels = {},
       slug,
+      id,
       dragresize;
   
   _this.labels = labels;
@@ -27,10 +28,7 @@ var Editor = new function() {
     this.link = link;
     this.is_svg = '';
 
-    if(typeof(data) == 'number') this.data = './upload/' + getVars.id + '/' + data + '-original.png';
-    else this.data = data;
-
-    if(svg) this.data = svg;
+    this.data = data;
 
     if(this.data.indexOf("data:image/svg+xml;") != -1) this.is_svg = ' is_svg';
 
@@ -303,7 +301,7 @@ var Editor = new function() {
       
       if(!$.isEmptyObject(labels) && !$(this).hasClass('disabled')) {
         
-        var data = {},
+        var data_labels = [],
             i = 0,
             coofW = _this.$video[0].videoWidth / _this.$video.width(),
             coofH = _this.$video[0].videoHeight / _this.$video.height();
@@ -313,7 +311,7 @@ var Editor = new function() {
           var left = labels[label].elem.css('left'),
               top = labels[label].elem.css('top');
           
-          data[i] = {
+          data_labels[i] = {
             
             name: labels[label].name,
             link: labels[label].link,
@@ -330,24 +328,31 @@ var Editor = new function() {
           i++;
           
         }
-        
-        var id = getVars.id;
-        
-        if(!id) id = 0;
+
+        var data = {
+          token: $("input[name=_token]").val(),
+          method: "PUT",
+          id: _this.id,
+          user_id: _this.user_id,
+          en: {
+            title: $("#TitleVideo").val(),
+            status: 1,
+            labels: JSON.stringify(data_labels)
+          }
+        };
         
         var self = $(this);
-        
         self.addClass('disabled').text('Видео сохраняется...');
         $('.progress').show().find('div').css('width', '0%').find('span').text('0%');
         
         
         $.ajax({
           type: 'post',
-          url: './index.php',
-          data: { type: 'save', filename: path, data: data, id: id },
+          url: '/api/videos/update/' + _this.slug,
+          data: data,
           success: function(data) {
             
-            var timeout = setInterval(function() {
+            /*var timeout = setInterval(function() {
               
               $.ajax({
                 type: 'post',
@@ -371,7 +376,7 @@ var Editor = new function() {
               $('.progress').hide().find('div').css('width', '0%').find('span').text('0%');
               location.href = "index.php?view=editor&id="+ data;
             }, 1000);
-            
+            */
           }
         });
         
@@ -670,7 +675,7 @@ var Editor = new function() {
           var data;
 
           $.ajax({
-              url: "./" + file,
+              url: file,
               dataType: "text",
               async: true,
               success: function(msg){
@@ -746,21 +751,22 @@ var Editor = new function() {
       if(_this.slug) {
         $.get('/en/video/' + _this.slug + '/json_labels', {}, function(data) {
           
-          data = JSON.parse(data);
-          
-          var i = 0;
-          
-          for(var obj in data) {
+          if(data) {
+            data = JSON.parse(data);
+            var i = 0;
             
-            var id = getId();
+            for(var obj in data) {
+              
+              var id = getId();
 
-            if(!data[obj].svg)
-              data[obj].svg = false;
-          
-            labels[id] = new Label(id, data[obj].name, data[obj].link, i, data[obj].svg, data[obj].width, data[obj].height, data[obj].left, data[obj].top, data[obj].start, data[obj].end);
+              if(!data[obj].svg)
+                data[obj].svg = false;
             
-            i++;
-            
+              labels[id] = new Label(id, data[obj].name, data[obj].link, data[obj].data, data[obj].svg, data[obj].width, data[obj].height, data[obj].left, data[obj].top, data[obj].start, data[obj].end);
+              
+              i++;
+              
+            }
           }
           
         });

@@ -75,6 +75,35 @@ class PublicController extends BasePublicController
             ->with(compact('model'));
     }
 
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param \TypiCMS\Modules\Videos\Http\Requests\FormRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(FormRequest $request)
+    {
+        $video = $this->repository->create($request->all());
+
+       // return $this->redirect($request, $video);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \TypiCMS\Modules\Videos\Models\Video            $video
+     * @param \TypiCMS\Modules\Videos\Http\Requests\FormRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Video $video, FormRequest $request)
+    {
+        $this->repository->update($request->all());
+
+        return $this->redirect($request, $video);
+    }
+
     public function json_labels($slug)
     {
         $model = $this->repository->bySlug($slug);
