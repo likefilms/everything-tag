@@ -158,17 +158,23 @@ $(document).ready(function() {
     $("#upload_form").submit(function(e) {
       e.preventDefault();
 
-        if($("input[type=file]")[0].files.length > 0) {
+        if($("input[type=file]")[0].files.length > 0 || $("input[name=uploadYoutube]").val()) {
           $("img.loading-video-file").show();
 
           var data = new FormData();
-          data.append("name", $("input[type=file]")[0].files[0]);
 
-          console.log($("input[type=file]")[0].files[0]);
+          if($("input[name=uploadYoutube]").val()) {
+            var method = "uploadYoutube";
+            data.append("link", $("input[name=uploadYoutube]").val());
+            data.append("type", $("input[name=typeYoutube]").val());
+          } else {
+            var method = "upload_video";
+            data.append("name", $("input[type=file]")[0].files[0]);
+          }
 
           $.ajax({
             type: 'post',
-            url: "api/videos/upload_video",
+            url: "api/videos/" + method,
             data: data,
             cache : false,
             processData: false,

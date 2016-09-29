@@ -82,6 +82,23 @@ class ApiController extends BaseApiController
         }
     }
 
+    public function uploadYoutube(Request $request) {
+        $link = Request::input('link');
+        $type = Request::input('type');
+
+        $uploaddir = 'uploads/videos/';
+        $type = substr($type, 6);
+
+        $fileName = rand(11111,99999) .'.'.$type;
+        $uploadName = $uploaddir . $fileName;
+
+        if (!copy($link, $uploadName)) {
+            return false;
+        } else {
+            echo $fileName;
+        }
+    }
+
     public function analytics() {
 
         echo 'test';

@@ -760,7 +760,7 @@ var Editor = new function() {
     _this.$video = $('#video');
     
     _this.$video.on('loadeddata', function() {
-      if(_this.slug ) {
+      if(_this.type != "create") {
         $.get('/en/video/' + _this.slug + '/json_labels', {}, function(data) {
           
           if(data) {
