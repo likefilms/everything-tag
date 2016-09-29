@@ -42,13 +42,13 @@ var Editor = new function() {
       
     }
 
-    if(_this.type=='editor') {
+    if(_this.type=='editor' || _this.type=='create') {
       var class_label = "drsElement drsMoveHandle";
     } else {
       var class_label = "";
     }
 
-    if(_this.type=='editor') {
+    if(_this.type=='editor' || _this.type=='create') {
       var labelVideo = $('<div class="video-label {class}" id="{id}"><img src="{data}"></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id));
     } else {
       var labelVideo = $('<div class="video-label publish_link {class}"><a target="_blank" onclick="{ga}" href="{link}"><img src="{data}"></a></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{link}/g, this.link).replace(/{ga}/g,"ga('send','event','tags','click','Name tag: " + this.name + "');"));
@@ -177,7 +177,7 @@ var Editor = new function() {
 
     });
     
-    if(_this.type=="editor") labelBlock.appendTo('#timeline');
+    if(_this.type=="editor" || _this.type=='create') labelBlock.appendTo('#timeline');
     
   };
   
@@ -215,7 +215,7 @@ var Editor = new function() {
         l.elem.show();
 
         // Отправляем аналитику
-        if(_this.type!="editor") ga('send','event','tags','show','Name tag: ' + l.name);
+        if(_this.type!="editor" || _this.type!="create") ga('send','event','tags','show','Name tag: ' + l.name);
 
         if(l.elem.find("img").attr("src")=="") {
           l.elem.find("img").attr("src",l.data);
@@ -332,14 +332,24 @@ var Editor = new function() {
         var data = {
           token: $("input[name=_token]").val(),
           method: "PUT",
-          id: _this.id,
           user_id: _this.user_id,
-          en: {
-            title: $("#TitleVideo").val(),
-            status: 1,
-            labels: JSON.stringify(data_labels)
-          }
         };
+
+        if(_this.id) {
+          data.id = _this.id;
+          var method = "update";
+        } else {
+          data.name = window.path.split("/uploads/videos/")[1];
+          data.slug = _this.slug;
+          var method = "create";
+        }
+
+        data.en = {
+          title: $("#TitleVideo").val(),
+          status: 1,
+          body: "",
+          labels: JSON.stringify(data_labels)
+        }
         
         var self = $(this);
         self.addClass('disabled').text('Видео сохраняется...');
@@ -348,10 +358,12 @@ var Editor = new function() {
         
         $.ajax({
           type: 'post',
-          url: '/api/videos/update/' + _this.slug,
+          url: '/api/videos/' + method + '/' + _this.slug,
           data: data,
           success: function(data) {
-            
+
+            window.location.href = "/en/video/" + _this.slug + "/edit";
+
             /*var timeout = setInterval(function() {
               
               $.ajax({
@@ -748,7 +760,7 @@ var Editor = new function() {
     _this.$video = $('#video');
     
     _this.$video.on('loadeddata', function() {
-      if(_this.slug) {
+      if(_this.slug ) {
         $.get('/en/video/' + _this.slug + '/json_labels', {}, function(data) {
           
           if(data) {

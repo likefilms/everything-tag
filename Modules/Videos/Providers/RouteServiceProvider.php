@@ -37,9 +37,9 @@ class RouteServiceProvider extends ServiceProvider
                     if ($page->translate($lang)->status && $uri = $page->uri($lang)) {
                         $router->get($uri, $options + ['as' => $lang.'.videos', 'uses' => 'PublicController@index']);
                         $router->get($uri.'/create', $options + ['as' => $lang.'.videos.create', 'uses' => 'PublicController@create']);
-                        $router->get($uri.'/{slug}', $options + ['as' => $lang.'.videos.slug', 'uses' => 'PublicController@show']);
+                        $router->get($uri.'/{slug}', ['as' => $lang.'.videos.slug', 'uses' => 'PublicController@show']);
                         $router->get($uri.'/{slug}/json_labels', $options + ['as' => $lang.'.videos.json_labels', 'uses' => 'PublicController@json_labels']);
-                        $router->get($uri.'/{slug}/oembed', $options + ['as' => $lang.'.videos.oembed', 'uses' => 'PublicController@oembed']);
+                        $router->get($uri.'/{slug}/oembed', ['as' => $lang.'.videos.oembed', 'uses' => 'PublicController@oembed']);
                         $router->get($uri.'/{slug}/delete', $options + ['as' => $lang.'.videos.delete', 'uses' => 'PublicController@delete']);
                         $router->get($uri.'/{slug}/edit', $options + ['as' => $lang.'.videos.edit', 'uses' => 'PublicController@edit']);
                     }
@@ -63,6 +63,7 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('api/analytics', 'ApiController@analytics')->name('api::analytics-video');
             $router->put('api/videos/{video}', 'ApiController@update')->name('api::update-video');
             $router->post('api/videos/update/{video}', 'ApiController@update')->name('api::update-video');
+            $router->post('api/videos/create/{video}', 'ApiController@store')->name('api::store-video');
             $router->delete('api/videos/{video}', 'ApiController@destroy')->name('api::destroy-video');
             
         });

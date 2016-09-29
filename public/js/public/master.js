@@ -164,6 +164,8 @@ $(document).ready(function() {
           var data = new FormData();
           data.append("name", $("input[type=file]")[0].files[0]);
 
+          console.log($("input[type=file]")[0].files[0]);
+
           $.ajax({
             type: 'post',
             url: "api/videos/upload_video",

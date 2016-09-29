@@ -1,20 +1,16 @@
 @extends('core::public.master')
 
 @section('main')
-
-    <!--@include('core::public._btn-prev-next', ['module' => 'Videos', 'model' => $model])
-    <article>
-        <h1>{{ $model->title }}</h1>
-        {!! $model->present()->thumb(null, 200) !!}
-        <p class="summary">{{ nl2br($model->summary) }}</p>
-        <div class="body">{!! $model->present()->body !!}</div>
-    </article>-->
-
        <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
+            {!! BootForm::open()->put()->action(route('admin::update-video', $model->id))->multipart()->role('form') !!}
+              
+            {!! BootForm::close() !!}
+
             <div class="edit-top">
               <a href="/" class="logo-edit"><img src="/img/logo-edit.png" alt=""></a>
+              <a href="#" <?php if(empty($model->title)) echo 'style="display:none;"'; ?> class="title"><?=$model->title; ?></a>
               <div class="form-group edit-title">
                 <input type="text" class="form-control" id="TitleVideo" value="" placeholder="Title">
               </div>
@@ -196,8 +192,9 @@
         
         window.path = '<?php echo '/uploads/videos/'.$file; ?>';
         
-        Editor.slug = '';
-        Editor.type = 'editor';
+        Editor.slug = '<?=$slug; ?>';
+        Editor.user_id = '<?=$user_id; ?>';
+        Editor.type = 'create';
         Editor.init();
         
 
