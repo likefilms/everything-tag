@@ -57,7 +57,7 @@ class Video extends Base
      */
     public $attachments = [
         'image',
-        'name',
+        //'name',
     ];
 
     /**

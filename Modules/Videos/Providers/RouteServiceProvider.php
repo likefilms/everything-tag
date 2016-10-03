@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                         $router->get($uri, $options + ['as' => $lang.'.videos', 'uses' => 'PublicController@index']);
                         $router->get($uri.'/create', $options + ['as' => $lang.'.videos.create', 'uses' => 'PublicController@create']);
                         $router->get($uri.'/{slug}', ['as' => $lang.'.videos.slug', 'uses' => 'PublicController@show']);
-                        $router->get($uri.'/{slug}/json_labels', $options + ['as' => $lang.'.videos.json_labels', 'uses' => 'PublicController@json_labels']);
+                        $router->get($uri.'/{slug}/json_labels', ['as' => $lang.'.videos.json_labels', 'uses' => 'PublicController@json_labels']);
                         $router->get($uri.'/{slug}/oembed', ['as' => $lang.'.videos.oembed', 'uses' => 'PublicController@oembed']);
                         $router->get($uri.'/{slug}/delete', $options + ['as' => $lang.'.videos.delete', 'uses' => 'PublicController@delete']);
                         $router->get($uri.'/{slug}/edit', $options + ['as' => $lang.'.videos.edit', 'uses' => 'PublicController@edit']);

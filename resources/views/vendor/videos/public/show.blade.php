@@ -71,7 +71,7 @@
         <div class="row share">
           <div class="form-group">
             <label for="usr">Share:</label>
-            <input type="text" class="form-control" value="http://everythingtag.com<?=$_SERVER['REQUEST_URI'];?>" id="like-url" />
+            <input type="text" class="form-control" readonly value="http://everythingtag.com<?=$_SERVER['REQUEST_URI'];?>" id="like-url" />
             <script type="text/javascript">(function() {
             if (window.pluso)if (typeof window.pluso.start == "function") return;
             if (window.ifpluso==undefined) { window.ifpluso = 1;

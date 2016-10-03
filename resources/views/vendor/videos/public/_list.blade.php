@@ -1,7 +1,7 @@
 <div class="row list">
   <div class="panel panel-default">
     <div class="panel-body">
-      <a href="#" class="welcome-logo"><img src="/img/logo.png" alt=""></a>
+      <a href="/" class="welcome-logo"><img src="/img/logo.png" alt=""></a>
       <table class="table">
         <thead>
           <tr>
