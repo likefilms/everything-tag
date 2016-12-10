@@ -29,6 +29,8 @@ class Video extends Base
         'user_id',
         // Translatable columns
         'title',
+        'description',
+        'keywords',
         'slug',
         'status',
         'labels',
@@ -42,13 +44,15 @@ class Video extends Base
      */
     public $translatedAttributes = [
         'title',
+        'description',
+        'keywords',
         'slug',
         'status',
         'labels',
         'body',
     ];
 
-    protected $appends = ['status', 'title', 'thumb'];
+    protected $appends = ['status', 'title', 'thumb', 'description'];
 
     /**
      * Columns that are file.
@@ -78,6 +82,16 @@ class Video extends Base
     public function getTitleAttribute()
     {
         return $this->title;
+    }    
+
+    /**
+     * Append description attribute from translation table.
+     *
+     * @return string description
+     */
+    public function getDescriptionAttribute()
+    {
+        return $this->description;
     }
 
     /**

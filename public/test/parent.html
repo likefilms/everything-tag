@@ -1,0 +1,13 @@
+<a id="link" href="#">Click to child.html </a>
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.name = "parent";
+        $('#link').click(function (event){ 
+            event.preventDefault();
+            window.open("child.html");
+        });
+    });
+</script>

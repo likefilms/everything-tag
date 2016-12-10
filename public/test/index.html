@@ -1,0 +1,116 @@
+<a href="https://www.stackoverflow.com" >aaa aaa</a>
+<a href="http://e-link.lt" >bbb bbb</a>
+In most cases, this should happen directly in the onclick handler for the link to prevent pop-up blockers, and the default "new window" behavior. You could do it this way, or by adding an event listener to your DOM object.
+
+<div onclick="openInNewTab('http://e-link.lt');">Something To Click On</div>
+<br/>
+
+<a href="https://www.stackoverflow.com" onclick="window.open('#','_self');window.open(this.href,'_blank');">AAA</a>
+<a href="https://www.stackoverflow.com" onclick="window.open('#','_blank');window.open(this.href,'_self');">BBB</a>
+<a href="https://www.stackoverflow.com" onclick="openNewBackgroundTab(this);">CCC</a>
+<script src="/js/jquery.js"></script>
+
+<script>
+
+function openInNewTab(url) {
+var winSelf = window.open('#', '_self');
+  var win = window.open(url, '_blank');
+  winSelf.focus();
+  //win.blur();
+}
+
+
+$(document).on('click', 'a', function(e){ 
+    e.preventDefault(); 
+    var url = $(this).attr('href'); 
+    window.open(url, '_blank');
+	window.open('#','_self');
+});
+
+function openNewBackgroundTab(a){    
+   // var a = document.createElement("a");    
+   // a.href = "http://www.google.com/";    
+    var evt = document.createEvent("MouseEvents");    
+
+    //the tenth parameter of initMouseEvent sets ctrl key    
+    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);    
+    a.dispatchEvent(evt);
+}
+
+/**/
+function openNewBackgroundTab_2(){
+    var a = document.createElement("a");
+    a.href = 'http://stackoverflow.com/';
+    var evt = document.createEvent("MouseEvents");
+    //the tenth parameter of initMouseEvent sets ctrl key
+    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+                                true, false, false, false, 0, null);
+    a.dispatchEvent(evt);
+}
+/**/
+/*
+var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+                if(!is_chrome)
+                {
+                    var url = window.location.pathname;
+                    var win = window.open(url, '_blank');
+                } 
+                else {
+                    openNewBackgroundTab_2();
+                    }
+	*/				
+</script>
+
+
+<div class="panel">
+  <p>
+    <!--  Enter Url: 
+    <input type="text" id="txturl" name="txturl" size="30" class="weburl" />
+    &nbsp;&nbsp;    
+   <input type="button" id="btnopen"  value="Open Url in New Tab" onclick="openURL();"/>  -->
+	<a href="https://www.stackoverflow.com" onclick="openURL(this.href);">DDD</a>
+  </p>
+</div>
+CSS:
+<style>
+.panel{
+  font-size:14px;
+}
+.panel input{
+  border:1px solid #333;
+}
+</style>
+JAVASCRIPT:
+<script>
+function isValidURL(url) {
+    var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
+    if (RegExp.test(url)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function openURL(href) {
+    //var url = document.getElementById("txturl").value.trim();
+
+        var myWindow = window.open(href, '_blank');
+        myWindow.focus();
+       // document.getElementById("txturl").value = '';
+
+}
+
+
+function openURL_stop() {
+    var url = document.getElementById("txturl").value.trim();
+    if (isValidURL(url)) {
+        var myWindow = window.open(url, '_blank');
+        myWindow.focus();
+        document.getElementById("txturl").value = '';
+    } else {
+        alert("Please enter valid URL..!");
+        return false;
+    }
+}
+</script>

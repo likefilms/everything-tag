@@ -1,0 +1,46 @@
+<a id="link" href="#">Click to child2.html </a>
+
+
+
+<script type="text/javascript">
+/*
+var child = window.open('child2.html', 'child');
+    window.external.comeback = function() {
+       // var back = confirm('Are you sure you want to comback?');
+var back=true;
+        if(back) {
+            child.close();
+        } else {
+            child.focus();
+        }
+    }
+*/
+</script>
+
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.name = "parent";
+        $('#link').click(function (event){ 
+            event.preventDefault();
+           var child = window.open("child2.html");
+	child.blur();  // Assures that the new window does NOT get focus);
+	window.focus();
+        });
+
+window.external.comeback = function() {
+        var back = confirm('Are you sure you want to comback?');
+//var back=true;
+        if(back) {
+            child.close();
+        } else {
+            child.focus();
+        }
+    }
+
+
+
+    });
+</script>

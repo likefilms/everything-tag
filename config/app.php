@@ -182,6 +182,7 @@ return [
          * TypiCMS Core Service Provider...
          */
         TypiCMS\Modules\Videos\Providers\ModuleProvider::class,
+        TypiCMS\Modules\Tags\Providers\ModuleProvider::class,
         TypiCMS\Modules\Core\Providers\ModuleProvider::class,
     ],
 

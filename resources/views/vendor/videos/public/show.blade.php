@@ -2,7 +2,9 @@
 
 @section('title', $model->title.' – '.trans('videos::global.name').' – '.$websiteTitle)
 @section('ogTitle', $model->title)
-@section('description', $model->summary)
+@section('description', $model->description)
+@section('keywords', $model->keywords)
+@section('ogUpdated', $model->updated_at)
 @section('image', $model->present()->thumbUrl())
 @section('bodyClass', 'body-videos body-video-'.$model->id.' body-page body-page-'.$page->id)
 

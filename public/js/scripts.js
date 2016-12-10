@@ -4,7 +4,7 @@ $(document).ready(function() {
 	var main_width = $("body").width();
 	$(".right-line").css('height',main_height + "px");
 
-	$(".video-social .share .pluso-more").hide();
+	$(".pluso .pluso-more").hide();
 
 	$("#add-tag").click(function() {
 		$(this).toggleClass("show");

@@ -2,6 +2,10 @@
 
     RewriteEngine On
 
+    # https
+    #RewriteCond %{SERVER_PORT} !^443$ 
+	#RewriteRule ^(.*)$ https://everythingtag.com/$1 [R=301,L]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]

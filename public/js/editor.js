@@ -57,7 +57,7 @@ var Editor = new function() {
     var labelImg = labelVideo.find('img');
     
     if(width) {
-      
+
       var coofW = _this.$video.width() / _this.$video[0].videoWidth,
           coofH = _this.$video.height() / _this.$video[0].videoHeight;
       
@@ -780,6 +780,8 @@ var Editor = new function() {
               
             }
           }
+
+          height_timeline();
           
         });
       }
@@ -803,7 +805,7 @@ var Editor = new function() {
 
 
       $('#timeline').show("slow", function() {
-         height_timeline();
+         
       });
 
     });

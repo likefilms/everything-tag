@@ -108,6 +108,22 @@ $(document).ready(function() {
         }
     });
 
+    $(".tags-tab li").click(function(e) {
+        var status = $(this).attr("data-id");
+
+        if(status == "saved") {
+            $(".tags-tab li:nth-child(2)").removeClass("active");
+            $(".tags-tab li:first-child").addClass("active");
+            $("#saved-tag").show();
+            $("#added-tag").hide();
+        } else {
+            $(".tags-tab li:first-child").removeClass("active");
+            $(".tags-tab li:nth-child(2)").addClass("active");
+            $("#saved-tag").hide();
+            $("#added-tag").show();
+        }
+    });
+
     $(".prepared-variations .variant").click(function() {
         $(".prepared-variations .variant").removeClass("active");
         $(this).addClass("active");
@@ -196,31 +212,42 @@ $(document).ready(function() {
        return $_GET; 
     }
 
+
     function handleFileSelect(evt) {
         evt.stopPropagation();
         evt.preventDefault();
 
+        drop = $("#" + evt.target.id);
         var files = evt.dataTransfer.files; // FileList object
-        //$("#uploadFile").val(files[0])
+        drop.siblings("input[type=file]").prop('files', files);
+
+        drop.removeClass("active");
     }
 
     function handleDragOver(evt) {
         evt.stopPropagation();
         evt.preventDefault();
+
+        drop = $("#" + evt.target.id);
+        drop.addClass("active");
         evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
     }
 
+    if($("#drop_zone").length > 0 || $("#drop_zone_label").length > 0) {
+      var dropZone = document.getElementById('drop_zone');
+      dropZone.addEventListener('dragover', handleDragOver, false);
+      dropZone.addEventListener('drop', handleFileSelect, false);     
 
-  /*
-  var dropZone = document.getElementById('drop_zone');
-  dropZone.addEventListener('dragover', handleDragOver, false);
-  dropZone.addEventListener('drop', handleFileSelect, false); */
+      var dropZoneLabel = document.getElementById('drop_zone_label');
+      dropZoneLabel.addEventListener('dragover', handleDragOver, false);
+      dropZoneLabel.addEventListener('drop', handleFileSelect, false); 
+    }
 
-if($("div").is(".container.list table.table")) {
-   $(".container.list table.table").tablesorter({
-    headers: { '0': {sorter: false}, '2': {sorter: false}, '3': {sorter: false}, '4': {sorter: false}, '5': {sorter: false} }
-  }); 
-}
+  if($("div").is(".container.list table.table")) {
+     $(".container.list table.table").tablesorter({
+      headers: { '0': {sorter: false}, '2': {sorter: false}, '3': {sorter: false}, '4': {sorter: false}, '5': {sorter: false} }
+    }); 
+  }
 
 
     var r = 0;

@@ -1,0 +1,73 @@
+<a id="link" href="#">Return to Parent </a>
+
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+// assuming you have jQuery
+    $(document).ready(function () {
+
+/*
+        $('#link'').click() {
+		console.log('$('#link'').click() ');
+	if (window.opener == null) {
+		console.log('window.opener == null');
+	} else
+	{
+		console.log('window.opener',window.opener);
+	}
+    window.opener.document.focus();
+       // window.opener.external.comeback();  
+    };
+*/
+/*
+$('#link').click(function(event) {
+            event.preventDefault();
+                  console.log('$(#link).click() ');
+
+            //var goBack = window.open('', 'parent'); //window.opener.name
+			console.log('window.opener.name: ',window.opener.name);
+			var goBack = window.open('', window.opener.name);
+
+window.blur();
+window.parent.opener.focus();
+          //  goBack.focus();
+     // window.opener.focus();
+        });
+
+*/
+
+
+function Bounce(w) {
+				window.blur();
+				w.focus();
+			}
+
+
+window.opener.open("","_parent");
+	//window.blur();
+	//window.opener.focus();
+	
+	//setTimeout(window.blur,0);
+	//setTimeout(window.opener.focus,0);
+	setTimeout(Bounce(window),3);
+	
+	
+   });
+
+</script>
+
+<script type="text/javascript">
+	var url = 'http://example.com/page.html'; //about:blank
+	//window.opener.open("","_parent");
+	
+	//window.blur();
+	//window.opener.focus();
+	//setTimeout(window.blur,0);
+	//setTimeout(window.opener.focus,0);
+	
+	//location.replace(url);
+</script>
+
+otherWinRef = window.open("","OtherWindow");
+setTimeout(window.focus,0);

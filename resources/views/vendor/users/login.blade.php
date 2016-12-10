@@ -25,7 +25,7 @@
       {!! Form::password('password')->addClass('form-control')->placeholder(trans('validation.attributes.password')) !!}
       {!! BootForm::submit(trans('validation.attributes.log in'), 'btn-primary')->addClass('btn-lg btn-block') !!}
       <a id="help" href="{{ route('register') }}">Sign up</a>
-      <div class="welcome-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="/r2/">Login FAQ</a></div>
+      <div class="welcome-text">Made in Berlin. All rights reserved. <a href="#">Login FAQ</a></div>
     </form>
 
     {!! BootForm::close() !!}

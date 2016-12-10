@@ -1,0 +1,40 @@
+<a id="link" href="#">Return to Parent </a>
+
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+// assuming you have jQuery
+    $(document).ready(function () {
+
+/*
+        $('#link'').click() {
+		console.log('$('#link'').click() ');
+	if (window.opener == null) {
+		console.log('window.opener == null');
+	} else
+	{
+		console.log('window.opener',window.opener);
+	}
+    window.opener.document.focus();
+       // window.opener.external.comeback();  
+    };
+*/
+
+$('#link').click(function(event) {
+            event.preventDefault();
+                  console.log('$(#link).click() ');
+
+            //var goBack = window.open('', 'parent'); //window.opener.name
+			console.log('window.opener.name: ',window.opener.name);
+			var goBack = window.open('', window.opener.name);
+
+window.blur();
+window.parent.opener.focus();
+          //  goBack.focus();
+     // window.opener.focus();
+        });
+
+
+   });
+</script>

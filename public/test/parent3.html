@@ -1,0 +1,47 @@
+NO click 
+
+<a id="link" href="#">child3</a>
+
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+// assuming you have jQuery
+    $(document).ready(function () {
+		$('#link').click(function(event) {
+            event.preventDefault();
+
+		//	var popunder = window.open('child3.html'); //, 'resizable=no,scrollbars=yes,height=600,width=800,status=yes,top=0,left=0'
+			//popunder.blur();
+			//window.focus();
+			//setTimeout(window.focus,0);
+			
+			function Bounce(w) {
+				window.blur();
+				w.focus();
+			}
+			
+		//	popunder.Bounce(window);
+
+			
+			
+			
+			if (window.detwin) {
+                     window.detwin.close();
+                     window.detwin = null;
+      }
+
+window.detwin = window.open('child3.html');
+window.detwin.blur();
+setTimeout(Bounce(window),3);
+
+//otherWinRef = window.open("","OtherWindow");
+//otherWinRef.Bounce(window);
+
+        });
+   });			
+
+</script>   
+
+
+

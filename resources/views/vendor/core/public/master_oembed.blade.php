@@ -26,6 +26,7 @@
     <link href="{{asset('css/tinyscrollbar.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/test.css')}}" rel="stylesheet">
+    <link href="@yield('new_css')" rel="stylesheet">
 
     @include('core::public._feed-links')
 
@@ -53,7 +54,7 @@
 
 </head>
 
-<body style="overflow:  hidden;">
+<body>
 
     @include('core::public._alert')
 

@@ -1,0 +1,15 @@
+<a id="link" href="#">Return to Parent </a>
+
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#link').click(function(event) {
+            event.preventDefault();
+            //var goBack = window.open('', 'parent'); //window.opener.name
+			console.log('window.opener.name: ',window.opener.name);
+			var goBack = window.open('', window.opener.name);
+            goBack.focus();
+        });
+    });
+</script>

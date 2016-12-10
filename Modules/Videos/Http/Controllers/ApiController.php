@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Videos\Models\Video;
 use TypiCMS\Modules\Videos\Repositories\VideoInterface as Repository;
+use TypiCMS\Modules\Tags\Repositories\TagInterface;
 
 class ApiController extends BaseApiController
 {
@@ -26,11 +27,16 @@ class ApiController extends BaseApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store($labels, TagInterface $tags)
     {
-        $model = $this->repository->create(Request::all());
-        $error = $model ? false : true;
+      $model = $this->repository->create(Request::all());
+      $error = $model ? false : true;
 
+
+      if(!$error) {
+        $labels = json_decode(Request::input("labels"));
+        $this->update_tags($labels, $tags, $model->id);
+      }
         return response()->json([
             'error' => $error,
             'model' => $model,
@@ -44,13 +50,69 @@ class ApiController extends BaseApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(TagInterface $tags)
     {
-        $updated = $this->repository->update(Request::all());
+        $labels = json_decode(Request::input("labels"));
 
-        return response()->json([
+        $this->update_tags($labels, $tags);
+
+       // $updated = $this->repository->update(Request::all());
+
+        /*return response()->json([
             'error' => !$updated,
-        ]);
+        ]);*/
+    }
+
+    public function update_tags($labels, $tags, $video_id = false)
+    {
+      if(!empty($labels)) {
+        foreach ($labels as $label) {
+
+            if($video_id)
+              $label->video_id = $video_id;
+
+            // Обновляем тег
+            if($tags->getFirstBy("id", $label->id)) {
+              $label->en = array(
+                'title' => $label->name
+              );
+              $tags->update(get_object_vars($label));
+
+            // Создаем новый    
+            } else { 
+
+              $label->en = array(
+                'title' => $label->name,
+                'slug' => $this->spfng_uri_encode($label->id, 'now'),
+                'status' => 1
+              );
+              
+              if($label->svg != 1) {
+                // Декодируем base64 в файл
+                if(strlen($label->image) > 128) {     
+                  $img = imagecreatefromstring(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $label->image)));
+                } else {
+                  $img = imagecreatefrompng($label->image);
+                }
+
+                // Создаем файл
+                $filename = rand(11111,99999) . ".png";
+                imagealphablending($img, true);
+                imagesavealpha($img, true);
+                imagepng($img, "uploads/tags/" . $filename);
+
+                $label->image = $filename;
+              }
+
+              unset($label->id);
+              unset($label->name);
+
+              $tags->create(get_object_vars($label));
+            }
+        }
+      } else {
+        return false;
+      }
     }
 
     /**
@@ -99,8 +161,18 @@ class ApiController extends BaseApiController
         }
     }
 
-    public function analytics() {
-
-        echo 'test';
+    protected function spfng_uri_encode($id = 0, $strtotime = '1970-01-01 00:00:00') {
+      if (is_numeric($id) === false) {
+        return false;
+      }
+      if (($strtotime = strtotime($strtotime)) === false) {
+        return false;
+      }
+      $id = strrev($strtotime).(int) $id;
+      $hash = base_convert($id, 10, 36);
+      if (substr($id, 0, 1) === '0') {
+        return substr_replace($hash, '_', rand(0, (strlen($hash) - 1)), 0);
+      }
+      return $hash;
     }
 }

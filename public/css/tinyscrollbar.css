@@ -8,3 +8,8 @@
 .control-scroll .thumb .end { background: #fff; overflow: hidden; height: 5px; width: 4px; }
 .control-scroll .disable { display: none; }
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+
+.plyr__controls_bookmark .control-scroll { width: 100%;  height: 420px; }
+.plyr__controls_bookmark .control-scroll .viewport { width: 90%;  height: 420px; }
+.plyr__controls_bookmark .control-scroll .track { width: auto;  height: 418px;  }
+.plyr__controls_bookmark .control-scroll .scrollbar { display: none; }

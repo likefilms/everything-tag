@@ -6,6 +6,7 @@ namespace TypiCMS\Modules\Videos\Http\Controllers;
 use Illuminate\Http\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Videos\Repositories\VideoInterface;
+use TypiCMS\Modules\Tags\Repositories\TagInterface;
 
 class PublicController extends BasePublicController
 {
@@ -33,20 +34,72 @@ class PublicController extends BasePublicController
      *
      * @return \Illuminate\View\View
      */
-    public function show($slug)
+    public function show($slug, TagInterface $tags)
     {
         $model = $this->repository->bySlug($slug);
+        $yt = false;
+        $vm = false;
+        $type_page = "video";
 
-        return view('videos::public.show')
-            ->with(compact('model'));
+        $video_tags = array();
+
+        if(!empty($tags->allBy("video_id", $model->id))) {
+          foreach ($tags->allBy("video_id", $model->id) as $tag) {
+
+            $video_tags[] = array(
+              'type' => $tag->type,
+              'name' => $tag->title,
+              'link' => $tag->link,
+              'start' => $tag->start,
+              'end' => $tag->end,
+              'end' => $tag->end,
+              'data' => $tag->image,
+              'data' => $tag->image,
+              'left' => $tag->left,
+              'top' => $tag->top,
+              'width' => $tag->width,
+              'height' => $tag->height
+            );
+          }
+        }
+
+        $model->labels = json_encode($video_tags);
+
+        //if($slug == '396l1jfo' || $slug == '3zxgz7b9' || $slug == 'cgjxlhvw') {
+            if(strripos($model->name, "yt_") !== false) {
+              $yt = true;
+              $model->name = substr($model->name, 3);
+            }
+            if(strripos($model->name, "vm_") !== false) {
+              $vm = true;
+              $model->name = substr($model->name, 3);
+            }
+            $view = 'videos::public.new_show';
+       // } else {
+           // $view = 'videos::public.show';
+       // }
+
+        return view($view)
+            ->with(compact('model','yt', 'vm', 'type_page'));
     }
 
     public function oembed($slug)
     {
         $model = $this->repository->bySlug($slug);
+        $yt = false;
+        $vm = false;
+
+        if(strripos($model->name, "yt_") !== false) {
+          $yt = true;
+          $model->name = substr($model->name, 3);
+        }
+        if(strripos($model->name, "vm_") !== false) {
+          $vm = true;
+          $model->name = substr($model->name, 3);
+        }
 
         return view('videos::public.oembed')
-            ->with(compact('model'));
+            ->with(compact('model','yt', 'vm'));
     }
 
     public function create(Request $request)
@@ -71,7 +124,9 @@ class PublicController extends BasePublicController
     {
         $model = $this->repository->bySlug($slug);
 
-        return view('videos::public.edit')
+        $view = 'videos::public.new_edit';
+
+        return view($view)
             ->with(compact('model'));
     }
 
@@ -104,11 +159,35 @@ class PublicController extends BasePublicController
         return $this->redirect($request, $video);
     }
 
-    public function json_labels($slug)
+    public function json_labels($slug, TagInterface $tags)
     {
         $model = $this->repository->bySlug($slug);
 
-        echo $model->labels;
+        $video_tags = array();
+
+        if(!empty($tags->allBy("video_id", $model->id))) {
+          foreach ($tags->allBy("video_id", $model->id) as $tag) {
+
+            $video_tags[] = array(
+              'id' => $tag->id,
+              'type' => $tag->type,
+              'name' => $tag->title,
+              'link' => $tag->link,
+              'start' => $tag->start,
+              'end' => $tag->end,
+              'data' => $tag->image,
+              'svg' => $tag->svg,
+              'left' => $tag->left,
+              'top' => $tag->top,
+              'width' => $tag->width,
+              'height' => $tag->height
+            );
+          }
+
+          echo json_encode($video_tags);
+        } else {
+          echo "";
+        }
     }
 
     public function delete($slug)

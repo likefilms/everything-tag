@@ -10,12 +10,26 @@
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
 
+    <link rel="original-source" href="{{ URL::full() }}" />
+    <link rel="canonical" href="{{ URL::full() }}" />
+    
+    <meta property="og:locale" content="{{ config('app.locale') }}" />
     <meta property="og:site_name" content="{{ $websiteTitle }}">
     <meta property="og:title" content="@yield('ogTitle')">
     <meta property="og:description" content="@yield('description')">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ URL::full() }}">
     <meta property="og:image" content="@yield('image')">
+    <meta property="og:image:width" content="760" />
+    <meta property="og:image:height" content="400" />
+    <meta property="og:updated_time" content="@yield('ogUpdated')" />
+
+    <meta property="fb:app_id" content="227337187612076" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:title" content="@yield('ogTitle')" />
+    <meta name="twitter:image" content="@yield('image')" />
 
     <!--<link href="{{ app()->isLocal() ? asset('css/public.css') : asset(elixir('css/public.css')) }}" rel="stylesheet">-->
 
@@ -26,6 +40,8 @@
     <link href="{{asset('css/tinyscrollbar.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/test.css')}}" rel="stylesheet">
+    <link href="@yield('new_css')" rel="stylesheet">
+
 
     @include('core::public._feed-links')
 
@@ -57,7 +73,7 @@
 <?php
     $r = Route::current();
 
-    if(strripos($r->getName(), "videos.slug") !== false) {
+    if(strripos($r->getName(), "videos.slug") !== false || strripos($r->getName(), "tags.slug") !== false) {
         $view = "video";
     } else if(strripos($r->getName(), "videos.edit") !== false || strripos($r->getName(), "videos.create") !== false) {
         $view = "editor";

@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                   <input type="text" class="form-control" id="labelLink" placeholder="Link">
                                 </div>
-                                <div class="form-group uploadFile">
+                                <div class="form-group uploadFile" id="drop_zone">
                                   <div id="bg-border"></div>
                                   <input type="file" class="file" id="labelImg">
                                   <div class="upload-text"><span>Choose a file</span><br> or drag it here.</div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="form-group uploadFile">
                       <input type="file" class="file" id="labelImgE">
-                      <div class="upload-text"><span>Update a file</span><br> or drag it here.</div>
+                      <div class="upload-text" id="drop_zone_label"><span>Update a file</span><br> or drag it here.</div>
                     </div>
                     <div class="form-group">
                       <button type="button" class="btn btn-primary" id="labelAddE">UPDATE</button>

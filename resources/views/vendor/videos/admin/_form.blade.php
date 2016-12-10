@@ -29,5 +29,7 @@
 
 
 {!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
+{!! TranslatableBootForm::textarea(trans('validation.attributes.description'), 'description')->rows(2) !!}
+{!! TranslatableBootForm::text('Keywords', 'keywords')->placeholder('keywords') !!}
 {!! TranslatableBootForm::textarea(trans('validation.attributes.labels'), 'labels')->rows(4) !!}
 {!! TranslatableBootForm::textarea(trans('validation.attributes.body'), 'body')->addClass('ckeditor') !!}

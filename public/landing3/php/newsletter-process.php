@@ -1,7 +1,7 @@
 <?php
 // Configure your Subject Prefix and Recipient here
-$subjectPrefix = '[Project Name]';
-$emailTo       = '';
+$subjectPrefix = '[Everythingtag]';
+$emailTo       = 'likefilms@gmail.com';
 
 $errors = array(); // array to hold validation errors
 $data   = array(); // array to pass back data
