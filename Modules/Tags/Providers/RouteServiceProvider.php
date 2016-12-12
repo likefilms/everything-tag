@@ -56,6 +56,7 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('api/tags', 'ApiController@index')->name('api::index-tags');
             $router->put('api/tags/{tag}', 'ApiController@update')->name('api::update-tag');
             $router->post('api/tags/create/{tag}', 'ApiController@store')->name('api::store-tag');
+            $router->post('api/tags/delete/{id}', 'ApiController@delete')->name('api::delete-tag');
             $router->delete('api/tags/{tag}', 'ApiController@destroy')->name('api::destroy-tag');
             $router->post('api/tags/spfng_uri_encode', 'ApiController@spfng_uri_encode')->name('api::spfng_uri_encode-tag');
             $router->post('api/tags/upload_file', 'ApiController@upload_file')->name('api::upload_file-tag');

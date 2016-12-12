@@ -138,6 +138,8 @@ var Editor = new function() {
             $('.edit-tags').find(".uploadFile").show();
           }*/
 
+
+
           
           //$('.add-label').hide();
           $('.edit-tags').show();
@@ -159,11 +161,25 @@ var Editor = new function() {
           e.preventDefault();
           
           if(confirm('Вы действительно хотите удалить метку?')) {
+
+            if(!labelBlock.find('.label-name').hasClass("new")) {
+              $.ajax({
+                type: 'post',
+                url: '/api/tags/delete/' + self.id,
+                data: data,
+                success: function(data) {
+
+                }
+                
+              });  
+            }
             
             labelBlock.remove();
             labelVideo.remove();
             
-            delete(labels[self.id]);destroy
+            delete(labels[self.id]);
+
+            $("#edit-tags").hide();
 
             // Обновляем высоту ползунка
             var th = $(".timeline-main .noUi-handle").height() - 22;
@@ -656,6 +672,8 @@ var Editor = new function() {
           var id = getId();
           
           labels[id] = new Label(id, "publisher", name, link, e.target.result);
+
+          $(".row.lbl .label-name[data-id=" + id + "]").addClass("new");
           
           $('#labelName').val(''),
           $('#labelLink').val(''),
@@ -682,6 +700,8 @@ var Editor = new function() {
           var id = getId();
 
           labels[id] = new Label(id, "publisher", name, link, "", 1);
+
+          $(".row.lbl .label-name[data-id=" + id + "]").addClass("new");
           
           $('#labelName2').val(''),
           $('#labelLink2').val('');

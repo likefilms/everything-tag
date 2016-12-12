@@ -69,6 +69,16 @@ class ApiController extends BaseApiController
         ]);
     }
 
+    public function delete($id)
+    {
+        $tag = $this->repository->byId($id);
+        $deleted = $this->repository->delete($tag);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
+    }
+
     public function upload_file(Request $request) {
         if (Request::file('image')->isValid()) {
             $extension = Request::file('image')->getClientOriginalExtension();
