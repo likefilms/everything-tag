@@ -137,9 +137,6 @@ var Editor = new function() {
             $('.edit-tags').find(".form-group:nth-child(1)").removeClass("svg");
             $('.edit-tags').find(".uploadFile").show();
           }*/
-
-
-
           
           //$('.add-label').hide();
           $('.edit-tags').show();
@@ -489,10 +486,7 @@ var Editor = new function() {
           url: '/api/videos/' + method + '/' + _this.slug,
           data: data,
           success: function(data) {
-
-            setTimeout(function() {
-              window.location.href = "/en/video/" + _this.slug + "/edit";
-            }, 1000);
+            window.location.href = "/en/video/" + _this.slug + "/edit";
 
             /*var timeout = setInterval(function() {
               

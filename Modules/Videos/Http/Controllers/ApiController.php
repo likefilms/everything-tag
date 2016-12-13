@@ -54,65 +54,68 @@ class ApiController extends BaseApiController
     {
         $labels = json_decode(Request::input("labels"));
 
-        $this->update_tags($labels, $tags);
+        if(!empty($labels)) {
+          foreach ($labels as $label) {
+            if($tags->getFirstBy("id", $label->id)) {
+              $this->update_tags($label, $tags);
+            } else {
+              $this->create_tags($label, $tags);
+            }
+          }
+        }  
 
-       // $updated = $this->repository->update(Request::all());
 
-        /*return response()->json([
+       $updated = $this->repository->update(Request::all());
+
+        return response()->json([
             'error' => !$updated,
-        ]);*/
+        ]);
     }
 
-    public function update_tags($labels, $tags, $video_id = false)
+    public function update_tags($label, TagInterface $tags)
     {
-      if(!empty($labels)) {
-        foreach ($labels as $label) {
+        $label->en = array(
+          'title' => $label->name
+        );
 
-            if($video_id)
-              $label->video_id = $video_id;
+        $res = $tags->update(get_object_vars($label));
 
-            // Обновляем тег
-            if($tags->getFirstBy("id", $label->id)) {
-              $label->en = array(
-                'title' => $label->name
-              );
-              $tags->update(get_object_vars($label));
+        return $res;
+    }
 
-            // Создаем новый    
-            } else { 
+    public function create_tags($label, TagInterface $tags)
+    {
+      //$label->video_id = $video_id;
 
-              $label->en = array(
-                'title' => $label->name,
-                'slug' => $this->spfng_uri_encode($label->id, 'now'),
-                'status' => 1
-              );
-              
-              if($label->svg != 1) {
-                // Декодируем base64 в файл
-                if(strlen($label->image) > 128) {     
-                  $img = imagecreatefromstring(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $label->image)));
-                } else {
-                  $img = imagecreatefrompng($label->image);
-                }
-
-                // Создаем файл
-                $filename = rand(11111,99999) . ".png";
-                imagealphablending($img, true);
-                imagesavealpha($img, true);
-                imagepng($img, "uploads/tags/" . $filename);
-
-                $label->image = $filename;
-              }
-
-              unset($label->id);
-              unset($label->name);
-
-              $tags->create(get_object_vars($label));
-            }
+      $label->en = array(
+        'title' => $label->name,
+        'slug' => $this->spfng_uri_encode($label->id, 'now'),
+        'status' => 1
+      );
+      
+      if($label->svg != 1) {
+        // Декодируем base64 в файл
+        if(strlen($label->image) > 128) {     
+          $img = imagecreatefromstring(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $label->image)));
+        } else {
+          $img = imagecreatefrompng($label->image);
         }
-      } else {
-        return false;
+
+        // Создаем файл
+        $filename = rand(11111,99999) . ".png";
+        imagealphablending($img, true);
+        imagesavealpha($img, true);
+        imagepng($img, "uploads/tags/" . $filename);
+
+        $label->image = $filename;
       }
+
+      unset($label->id);
+      unset($label->name);
+
+      $res = $tags->create(get_object_vars($label));
+
+      return $res;
     }
 
     /**

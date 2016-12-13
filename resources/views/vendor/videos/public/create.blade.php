@@ -68,13 +68,6 @@
                                     <div class="title">prepared variations</div>
                                     <div class="variations">
                                       <div class="variant" data-svg="/svg/itag_01.svg"><img src="/img/itag_01.png" alt="Tag 1"></div>
-                                      <div class="variant" data-svg="/svg/itag_02.svg"><img src="/img/itag_02.png" alt="Tag 2"></div>
-                                      <div class="variant" data-svg="/svg/itag_03.svg"><img src="/img/itag_03.png" alt="Tag 3"></div>
-                                      <div class="variant" data-svg="/svg/itag_04.svg"><img src="/img/itag_04.png" alt="Tag 4"></div>
-                                      <div class="variant" data-svg="/svg/itag_05.svg"><img src="/img/itag_05.png" alt="Tag 5"></div>
-                                      <div class="variant" data-svg="/svg/itag_06.svg"><img src="/img/itag_06.png" alt="Tag 6"></div>
-                                      <div class="variant" data-svg="/svg/itag_07.svg"><img src="/img/itag_07.png" alt="Tag 7"></div>
-                                      <div class="variant" data-svg="/svg/itag_08.svg"><img src="/img/itag_08.png" alt="Tag 8"></div>
                                     </div>
                                   </div>
                                   <input type="file" style="display: none;" class="file" id="labelImg2">
