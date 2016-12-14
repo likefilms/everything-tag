@@ -7,6 +7,7 @@ use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Videos\Models\Video;
 use TypiCMS\Modules\Videos\Repositories\VideoInterface as Repository;
 use TypiCMS\Modules\Tags\Repositories\TagInterface;
+use TypiCMS\Modules\Tags\Models\Tag;
 
 class ApiController extends BaseApiController
 {
@@ -16,10 +17,12 @@ class ApiController extends BaseApiController
      *  
      */
     protected $publicEndpoints = [];
+    protected $tags_model;
 
-    public function __construct(Repository $repository)
+    public function __construct(Repository $repository, Tag $tag)
     {
         parent::__construct($repository);
+        $this->tags_model = $tag;
     }
 
     /**
@@ -35,7 +38,19 @@ class ApiController extends BaseApiController
 
       if(!$error) {
         $labels = json_decode(Request::input("labels"));
-        $this->update_tags($labels, $tags, $model->id);
+
+        foreach ($labels as $label) {
+          if($tags->getFirstBy("id", $label->id)) {
+
+            $this->update_tags($label, $tags);
+
+          } else {
+
+            $label->video_id = $model->id;
+            $this->create_tags($label, $tags);
+
+          }
+        }
       }
         return response()->json([
             'error' => $error,
@@ -59,11 +74,10 @@ class ApiController extends BaseApiController
             if($tags->getFirstBy("id", $label->id)) {
               $this->update_tags($label, $tags);
             } else {
-              $this->create_tags($label, $tags);
+              $this->create_tags($label);
             }
           }
         }  
-
 
        $updated = $this->repository->update(Request::all());
 
@@ -83,9 +97,8 @@ class ApiController extends BaseApiController
         return $res;
     }
 
-    public function create_tags($label, TagInterface $tags)
+    public function create_tags($label)
     {
-      //$label->video_id = $video_id;
 
       $label->en = array(
         'title' => $label->name,
@@ -113,7 +126,7 @@ class ApiController extends BaseApiController
       unset($label->id);
       unset($label->name);
 
-      $res = $tags->create(get_object_vars($label));
+      $res = $this->tags_model->create(get_object_vars($label));
 
       return $res;
     }

@@ -807,6 +807,34 @@ pre.code {
   -webkit-animation: spin 4s infinite steps(40);
 }
 
+.video-label .animate-tag.tag2 {
+  animation: bounce 2s infinite;
+ -webkit-animation: bounce 2s infinite;
+ -moz-animation: bounce 2s infinite;
+ -o-animation: bounce 2s infinite;
+}
+
+.video-label .animate-tag.tag3 {
+  animation: bounce 2s infinite;
+ -webkit-animation: bounce 2s infinite;
+ -moz-animation: bounce 2s infinite;
+ -o-animation: bounce 2s infinite;
+}
+
+.video-label .animate-tag.tag4 {
+  animation: bounce 2s infinite;
+ -webkit-animation: bounce 2s infinite;
+ -moz-animation: bounce 2s infinite;
+ -o-animation: bounce 2s infinite;
+}
+
+.video-label .animate-tag.tag5 {
+  animation: bounce 2s infinite;
+ -webkit-animation: bounce 2s infinite;
+ -moz-animation: bounce 2s infinite;
+ -o-animation: bounce 2s infinite;
+}
+
 /*  сценарий анимации */
 @keyframes spin {
    /*  первая сцена  0-25% отведенного времени */
@@ -823,6 +851,33 @@ pre.code {
        100% {
       transform: rotate(0deg);
    }
+}
+
+/*  сценарий анимации для разных броусеров */ 
+   /*  сценарий анимации для разных броусеров -webkit ХРОМ */ 
+@-webkit-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 
+ 40% {-webkit-transform: translateY(-30px);}
+ 60% {-webkit-transform: translateY(-15px);}
+}
+ 
+ /*  сценарий анимации для разных броусеров -moz  МОЗИЛА */ 
+@-moz-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+ 40% {-moz-transform: translateY(-30px);}
+ 60% {-moz-transform: translateY(-15px);}
+}
+  /*  сценарий анимации для разных броусеров -moz  ОПЕРА */ 
+@-o-keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+ 40% {-o-transform: translateY(-30px);}
+ 60% {-o-transform: translateY(-15px);}
+}
+ /*  сценарий анимации - общий */ 
+@keyframes bounce {
+ 0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+ 40% {transform: translateY(-30px);}
+ 60% {transform: translateY(-15px);}
 }
 
 .file {

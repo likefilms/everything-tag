@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Videos\Repositories\VideoInterface;
 use TypiCMS\Modules\Tags\Repositories\TagInterface;
+use TypiCMS\Modules\Tags\Models\Tag;
 
 class PublicController extends BasePublicController
 {
@@ -61,6 +62,14 @@ class PublicController extends BasePublicController
               'height' => $tag->height
             );
           }
+
+          // Сортируем массив
+          $video_start = array();
+          foreach ($video_tags as $key => $v) {
+            $video_start[$key] = $v['start'];
+          }
+
+          array_multisort($video_start, SORT_NUMERIC, $video_tags);
         }
 
         $model->labels = json_encode($video_tags);
@@ -183,6 +192,14 @@ class PublicController extends BasePublicController
               'height' => $tag->height
             );
           }
+
+          // Сортируем массив
+          $video_start = array();
+          foreach ($video_tags as $key => $v) {
+            $video_start[$key] = $v['start'];
+          }
+
+          array_multisort($video_start, SORT_NUMERIC, $video_tags);
 
           echo json_encode($video_tags);
         } else {

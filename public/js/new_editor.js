@@ -44,13 +44,12 @@ var Editor = new function() {
 
     if(svg == 1)  {
       this.is_svg = ' is_svg';
-      this.data = "/img/etag_badge_test_65-108mm.svg";
     }
 
     this.start = 0;
     this.end = duration;
     
-    if(width) {
+    if(startI && endI) {
       
       this.start = startI;
       this.end = endI;
@@ -69,16 +68,21 @@ var Editor = new function() {
     var path_img = "";
     if(width) path_img = "/uploads/tags/";
 
+    if(svg == 1) {
+      path_img = "/img/";
+      type_svg = this.data.slice(0, -4);
+    }
+
     if(type != "user") {
       if(_this.type=='editor' || _this.type=='create') {
         if(svg == 1) {
-          var labelVideo = $('<div class="video-label {class}" id="{id}"><img class="animate-tag tag1" src="{data}"></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id));
+          var labelVideo = $('<div class="video-label {class}" id="{id}"><img class="animate-tag {type-svg}" src="{data}"></div>'.replace(/{data}/g, path_img + this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id).replace(/{type-svg}/g, type_svg));
         } else {
           var labelVideo = $('<div class="video-label {class}" id="{id}"><img src="{data}"></div>'.replace(/{data}/g, path_img + this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id));
         }
       } else {
         if(svg == 1) {
-          var labelVideo = $('<div data-plyr="publish_label" class="video-label publish_link {class}"><a onclick="{ga}" data-save="false" href="{link}"><img class="animate-tag tag1" src="{data}"></a></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id));
+          var labelVideo = $('<div data-plyr="publish_label" class="video-label publish_link {class}"><a onclick="{ga}" data-save="false" href="{link}"><img class="animate-tag {type-svg}" src="/img/{data}"></a></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{id}/g, "video-label" + this.id).replace(/{type-svg}/g, type_svg));
         } else {
           var labelVideo = $('<div data-plyr="publish_label" class="video-label publish_link {class}"><a onclick="{ga}" data-save="false" href="{link}"><img src="/uploads/tags/{data}"></a></div>'.replace(/{data}/g, this.data).replace(/{class}/g, class_label).replace(/{link}/g, this.link).replace(/{ga}/g,"ga('send','event','tags','click','Name tag: " + this.name + "');"));
         }
@@ -94,8 +98,14 @@ var Editor = new function() {
 
         var coofW = _this.$video.width() / instances[0].getMedia().videoWidth,
             coofH = _this.$video.height() / instances[0].getMedia().videoHeight;
+
+
+        if(left !== undefined) {
+          labelVideo.css('width', width * coofW + 'px').css('height', height * coofH + 'px').css('left', left * coofW + 'px').css('top', top * coofH + 'px');
+        } else {
+          labelVideo.css('width', width * coofW + 'px').css('height', height * coofH + 'px').css('left', (_this.$video.width() - labelVideo.width()) / 2 + 'px').css('top', (_this.$video.height() - labelVideo.height()) / 2 + 'px');
+        }
         
-        labelVideo.css('width', width * coofW + 'px').css('height', height * coofH + 'px').css('left', left * coofW + 'px').css('top', top * coofH + 'px');;
       }
       else {
 
@@ -692,8 +702,12 @@ var Editor = new function() {
       if($('.prepared-variations .variant').hasClass("active")) {
     
           var id = getId();
+          var data = $('.prepared-variations .variant.active').attr("data-svg");
 
-          labels[id] = new Label(id, "publisher", name, link, "", 1);
+          var width = $('.prepared-variations .variant.active').attr("data-width");
+          var height = $('.prepared-variations .variant.active').attr("data-height");
+
+          labels[id] = new Label(id, "publisher", name, link, data, 1, width, height);
 
           $(".row.lbl .label-name[data-id=" + id + "]").addClass("new");
           
