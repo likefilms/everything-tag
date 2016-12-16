@@ -1,3 +1,4 @@
+Options -Indexes
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^everythingtag.com$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^www.everythingtag.com$
